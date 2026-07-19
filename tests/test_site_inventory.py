@@ -18,7 +18,8 @@ class TestSiteInventory(unittest.TestCase):
         urls = {p["url"] for p in pages}
         self.assertIn("/", urls)
         self.assertIn("/articles/how-long-do-solar-lights-last", urls)
-        self.assertEqual(len(pages), 4)
+        # one record per HTML file, however many the site has grown to
+        self.assertEqual(len(pages), len(list(SITE.rglob("*.html"))))
 
     def test_extracts_seo_fields(self):
         pages = {p["url"]: p for p in inventory(SITE)}

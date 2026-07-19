@@ -121,10 +121,18 @@ class CEO:
         halted = [r for r in results if r["status"] == "needs_approval"]
         pending = self.gate.pending()
 
+        live = [p["name"] for p in snapshot.get("properties", [])
+                if p.get("status") == "live"]
+        if live:
+            revenue_line = (f"Revenue: no revenue data yet — {', '.join(live)} "
+                            "live but unmonetized (no analytics/affiliate "
+                            "wiring); no numbers will be invented.")
+        else:
+            revenue_line = ("Revenue: no revenue data yet — no property is "
+                            "live; no numbers will be invented.")
         lines = [
             f"AE-OS Executive Brief — {datetime.now(timezone.utc).date().isoformat()}",
-            "Revenue: no revenue data yet — no property is live; "
-            "no numbers will be invented.",
+            revenue_line,
             f"Cost this cycle: {cycle_tokens} tokens, {cycle_currency:.2f} "
             f"currency (cumulative {cost_now['tokens']} / "
             f"{cost_now['currency']:.2f}).",
@@ -140,9 +148,11 @@ class CEO:
             action = "Decide the pending approvals; everything else proceeds."
         elif failed:
             action = f"Review the {len(failed)} DoD failure(s) logged this cycle."
+        elif live:
+            action = ("Grow the live properties (content/monetization) and "
+                      "advance the next unbuilt roadmap item (docs/10).")
         else:
-            action = ("Advance the roadmap: next unbuilt Phase 2 item "
-                      "(third department / interface).")
+            action = "Advance the next unbuilt roadmap item (docs/10)."
         lines.append(f"Recommended next action: {action}")
 
         brief = "\n".join(lines)
