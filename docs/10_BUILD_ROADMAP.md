@@ -24,7 +24,7 @@
 
 ## Phase 3 — Sentinel Layer + Remaining Departments (Month 3-4)
 
-- [ ] Build lightweight Sentinels for Revenue and Code first (highest volatility).
+- [ ] Build lightweight Sentinels for Revenue and Code first (highest volatility). (Code/ops side done: `coo.sentinel-uptime` in `/sentinels` — homepage/sitemap/deploy checks, wakes CEO on anomaly, `python -m sentinels.watch`. Revenue sentinel awaits Search Console data.)
 - [ ] Bring remaining departments (CRO, CFO, COO, Legal, Trading) online one at a time, same pilot-then-integrate pattern.
 - [ ] Trading Desk: start with paper-trading/dry-run only until risk-manager caps are verified working, THEN go live with the 5,000 INR baseline.
 

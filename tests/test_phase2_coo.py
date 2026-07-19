@@ -119,19 +119,34 @@ class TestCEOAllocatesCOO(unittest.TestCase):
         kill_switch.resume()
 
     def test_cycle_prepares_runbook_and_halts_without_duplicates(self):
+        # Inject an in_build property instead of reading live settings —
+        # the real brightpaths has since gone live, and a live property
+        # correctly gets NO first-deploy runbook allocation.
         ledger, router = fresh()
         ceo = CEO(ledger, router)
-        out1 = ceo.run_cycle()
-        by_agent = {r["agent_id"]: r for r in out1["results"]}
-        self.assertIn("coo.launch-runbook", by_agent)
+        snapshot = {"properties": [
+            {"name": "testsite", "root": "sites/brightpaths",
+             "status": "in_build", "domain": None,
+             "hosting": "github_pages (planned)"}],
+            "pending_approvals": []}
+        alloc = ceo.allocate(snapshot)
+        self.assertIn("COO", alloc)
+        by_agent = {r["agent_id"]: r for r in ceo.dispatch(alloc)}
         self.assertEqual(by_agent["coo.launch-runbook"]["status"],
                          "needs_approval")
-        self.assertIn("pending approval", out1["brief"])
-        # second cycle: pending deploy approval -> COO not re-allocated
-        out2 = ceo.run_cycle()
-        agents2 = [r["agent_id"] for r in out2["results"]]
-        self.assertNotIn("coo.launch-runbook", agents2)
+        # re-ingest with that approval now pending -> COO not re-allocated
+        snapshot["pending_approvals"] = ceo.gate.pending()
+        self.assertNotIn("COO", ceo.allocate(snapshot))
         self.assertEqual(len(ApprovalGate(ledger).pending()), 1)
+
+    def test_live_property_gets_no_first_deploy_allocation(self):
+        ledger, router = fresh()
+        ceo = CEO(ledger, router)
+        snapshot = {"properties": [
+            {"name": "livesite", "root": "sites/brightpaths",
+             "status": "live", "url": "https://example.test/"}],
+            "pending_approvals": []}
+        self.assertNotIn("COO", ceo.allocate(snapshot))
 
 
 if __name__ == "__main__":

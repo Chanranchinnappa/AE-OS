@@ -35,6 +35,7 @@
         "domain": null,
         "hosting": "github_pages",
         "url": "https://chanranchinnappa.github.io/AE-OS/",
+        "deploy_workflow": "deploy-brightpaths-pages",
         "_note": "Working name chosen by CEO with Chairperson approval 2026-07-19. Pages enabled by Chairperson (build_type=workflow). First deploy approved: cf980826. Custom domain purchase = real spend, still awaits Chairperson."
       }
     ]
