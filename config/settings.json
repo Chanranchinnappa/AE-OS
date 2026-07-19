@@ -33,8 +33,9 @@
         "status": "in_build",
         "root": "sites/brightpaths",
         "domain": null,
-        "hosting": "github_pages (planned)",
-        "_note": "Working name chosen by CEO with Chairperson approval 2026-07-19. Domain purchase = real spend, awaits Chairperson."
+        "hosting": "github_pages",
+        "url": "https://chanranchinnappa.github.io/AE-OS/",
+        "_note": "Working name chosen by CEO with Chairperson approval 2026-07-19. Pages enabled by Chairperson (build_type=workflow). First deploy approved: cf980826. Custom domain purchase = real spend, still awaits Chairperson."
       }
     ]
   }
