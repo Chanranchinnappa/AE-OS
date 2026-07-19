@@ -1,0 +1,41 @@
+{
+  "chairperson": {
+    "name": "Chairperson",
+    "report_max_words": 200
+  },
+  "budget_ceilings": {
+    "daily_marketing_spend": 0,
+    "monthly_tooling_api_spend": 20,
+    "trading_starter_baseline_inr": 0,
+    "single_spend_escalation_pct_of_monthly": 25,
+    "_note": "Near-zero bootstrap. Trading deferred until Phase 3 per roadmap. Chairperson updates these numbers; the CEO may never edit this file autonomously (08_GOVERNANCE_AND_SAFETY.md)."
+  },
+  "model_router": {
+    "tier0_provider": "ollama",
+    "tier0_model": "llama3",
+    "ollama_url": "http://localhost:11434",
+    "tier1_provider": "none",
+    "tier2_provider": "none",
+    "daily_currency_ceiling": 0.0,
+    "_note": "Switch tier0_provider to 'ollama' after installing Ollama locally."
+  },
+  "operating_loop": {
+    "cycle_hours": 24,
+    "pilot_department": "CMO"
+  },
+  "venture": {
+    "type": "content_seo_sites",
+    "description": "Programmatic content / SEO web properties. First revenue vehicle for AE-OS.",
+    "properties": [
+      {
+        "name": "brightpaths",
+        "niche": "solar & outdoor garden lighting",
+        "status": "in_build",
+        "root": "sites/brightpaths",
+        "domain": null,
+        "hosting": "github_pages (planned)",
+        "_note": "Working name chosen by CEO with Chairperson approval 2026-07-19. Domain purchase = real spend, awaits Chairperson."
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+data/
+__pycache__/
+*.pyc
+.env
+.venv/
+ruvector.db
+.claude/settings.local.json
+
+# Local agent-tooling runtime state — machine-specific, never committed
+.claude-flow/
+.swarm/
+.hive-mind/
