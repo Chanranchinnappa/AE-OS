@@ -30,7 +30,11 @@ class _PageParser(HTMLParser):
             self.meta_description = attrs.get("content", "")
         if tag == "a":
             href = attrs.get("href", "")
-            if href.startswith("/") and not href.startswith("//"):
+            # Internal = same-site: root-relative or document-relative links.
+            # (Sites deployed under a subpath, e.g. GitHub Pages project
+            # sites, must use relative links — see brightpaths.)
+            if href and not href.startswith(
+                    ("http://", "https://", "//", "#", "mailto:")):
                 self.internal_links.append(href)
         self._stack.append(tag)
 

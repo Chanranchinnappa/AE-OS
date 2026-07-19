@@ -1,0 +1,38 @@
+# Deploy brightpaths to GitHub Pages.
+#
+# Governance (docs/08_GOVERNANCE_AND_SAFETY.md): the FIRST deploy of this
+# product requires Chairperson approval via `python -m core.approval_gate`
+# and is triggered manually (workflow_dispatch = the Chairperson's click).
+# After that, routine content deploys follow the COO launch-runbook: pushes
+# touching the site auto-deploy.
+name: deploy-brightpaths-pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths: ["sites/brightpaths/**"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: sites/brightpaths
+      - id: deployment
+        uses: actions/deploy-pages@v4
